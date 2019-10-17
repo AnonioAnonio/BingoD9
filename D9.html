@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<!--
+        BINGO CHALLENGE!!!
+        Create programmatically (with JS) a BINGO board with 76 cells, from 1 to 76.
+        Create a button to randomize a number from 1 to 76. The same number should be highlighted on the bingo board
+
+        EXTRA: 
+        - Take ALWAYS a new number (avoid randoming 10 3 times for example)
+        - Create a USER BOARD with random 24 numbers that highlights as the main board does
+        - Let the user choose HOW MANY user boards he's willing to play with and create them.
+    -->
+
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=.6">
+    <style>
+        .title {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            width: 500px;
+            margin-bottom: 10px;
+        }
+
+        .title button {
+            background-color: #8fb574;
+            color: white;
+            font-size: 18px;
+            width: 500px;
+            height: 50px;
+        }
+
+        .bingo {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #4f6d9e;
+            color: #fff;
+            box-sizing: border-box;
+            border: 1px solid #bdbdbd;
+            align-items: flex-start;
+            text-align: center;
+            width: 100px;
+            min-height: 100px;
+        }
+
+        #board {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            width: 500px;
+        }
+
+        #board .number {
+            box-sizing: border-box;
+            border: 1px solid black;
+            align-items: flex-start;
+            text-align: center;
+            width: 100px;
+            min-height: 100px;
+        }
+
+        #play {
+            margin-top: 10px;
+            display: none;
+            background-color: #8fb574;
+            color: white;
+            font-size: 18px;
+            width: 500px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function createBingo() {
+            var table = document.getElementById("board");
+            document.getElementById("create").style.display = "none";
+            document.getElementById("play").style.display = "block";
+            for (i = 0; i < 25; i++) {
+                var number = document.createElement("div");
+                var rng = Math.floor(Math.random() * (76 - 1)) + 1;
+                number.className = "number";
+                number.setAttribute("value", rng);
+                number.innerHTML = "<h1>" + rng + "</h1>";
+                table.appendChild(number);
+                number.style.fontFamily = "arial";
+                if (i == 12) {
+                    number.innerHTML = "<h1>Free</h1>";
+                    number.style.background = "#8fb574";
+                    number.style.color = "#fff";
+                    
+                }
+
+            }
+        }
+
+        function play(){
+            var random = Math.floor(Math.random() * (76 - 1)) + 1;
+            var selected = document.querySelectorAll("div[value='"+random+"']");
+            if(selected.length>0){
+                document.querySelector("div[value='"+random+"']").style.transition="0.5s";
+                document.querySelector("div[value='"+random+"']").style.background="#8fb574";
+            }
+        }
+    </script>
+    <div class="title">
+        <div class="bingo">
+            <h1>B</h1>
+        </div>
+        <div class="bingo">
+            <h1>I</h1>
+        </div>
+        <div class="bingo">
+            <h1>N</h1>
+        </div>
+        <div class="bingo">
+            <h1>G</h1>
+        </div>
+        <div class="bingo">
+            <h1>O</h1>
+        </div>
+    </div>
+    <div id="board">
+
+    </div>
+    <div class="title">
+        <button id="create" onclick="createBingo()">Create new bingo card</button>
+        <button id="play" onclick="play()">Play</button>
+    </div>
+</body>
+
+</html>
